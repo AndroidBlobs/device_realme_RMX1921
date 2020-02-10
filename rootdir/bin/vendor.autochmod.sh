@@ -75,19 +75,6 @@ function wifipktlogtransf(){
     setprop ctl.start setiwprivpkt1
 }
 
-#Add for: close fw log when 6125 aging test.
-function prewifidriverlog(){
-    platform=`getprop ro.board.platform`
-    special_oppo_cfg=`getprop SPECIAL_OPPO_CONFIG`
-
-    if [ "${platform}" = "trinket" -a "${special_oppo_cfg}" = "1" ];then
-        setprop oppo.wifi.fwlog.state false
-    else
-        setprop oppo.wifi.fwlog.state true
-    fi
-}
-#end
-
 function switchWiFiIniForRoam() {
     # Notice that /storage/persist is link of /mnt/vendor/persist
     dstFile="/storage/persist/WCNSS_qcom_cfg.ini"
@@ -129,35 +116,6 @@ function WifibdfVersion() {
     setprop oppo.wifi.bdfver "$bdfMd5"
 }
 
-#Jiaobo@PSW.CN.WiFi.Basic.Switch.2121524, 2019/06/24
-#Add for: check persist partition, use default WCNSS_qcom_cfg.ini when the persist partition is mount failed
-function wlanpersistmountcheck() {
-    PERSIST_WIFI_CONFIG_BDF_PATH="/mnt/vendor/persist"
-    PERSIST_WIFI_CONFIG_FILE="/mnt/vendor/persist/WCNSS_qcom_cfg.ini"
-    PERSIST_WIFI_BDF_FILE="/mnt/vendor/persist/bdwlan.bin"
-
-    if [ ! -d ${PERSIST_WIFI_CONFIG_BDF_PATH} ];then
-        echo "persist partition may mount failed."
-        setprop vendor.oppo.wifi.check.persist mount_invaild_folder
-    else
-        if [ ! -f ${PERSIST_WIFI_CONFIG_FILE} -o ! -f ${PERSIST_WIFI_BDF_FILE} ];then
-            if [ ! -f ${PERSIST_WIFI_CONFIG_FILE} -a ! -f ${PERSIST_WIFI_BDF_FILE} ];then
-                setprop vendor.oppo.wifi.check.persist mount_invaild_all
-            else
-                if [ ! -f ${PERSIST_WIFI_BDF_FILE} ];then
-                    setprop vendor.oppo.wifi.check.persist mount_invaild_bdf
-                fi
-                if [ ! -f ${PERSIST_WIFI_CONFIG_FILE} ];then
-                    setprop vendor.oppo.wifi.check.persist mount_invaild_ini
-                fi
-            fi
-        else
-            setprop vendor.oppo.wifi.check.persist mount_vaild
-        fi
-    fi
-}
-#end
-
 case "$option" in
     "prepacketlog")
         prepacketlog
@@ -173,17 +131,6 @@ case "$option" in
         WifibdfVersion
         ;;
         #end
-    #Add for: close fw log when 6125 aging test.
-    "prewifidriverlog")
-        prewifidriverlog
-        ;;
-    #end
-    #Jiaobo@PSW.CN.WiFi.Basic.Switch.2121524, 2019/06/24
-    #Add for: check persist partition, use default WCNSS_qcom_cfg.ini when the persist partition is mount failed
-    "wlanpersistmountcheck")
-        wlanpersistmountcheck
-        ;;
-    #end
        *)
     defaultaction
       ;;

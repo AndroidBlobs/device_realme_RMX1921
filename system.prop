@@ -1,8 +1,8 @@
-ro.build.keystore.path=/sdcard/.lii/
 ro.dolby.model=PAFM00
 ro.dolby.device=OP46C3
 ro.dolby.manufacturer=OPPO
 ro.dolby.brand=OPPO
+
 #
 # from device/qcom/sdm710/system.prop
 #
@@ -51,22 +51,13 @@ media.settings.xml=/vendor/etc/media_profiles_vendor.xml
 #13631487 is decimal sum of supported codecs in AAL
 #codecs:(PARSER_)AAC AC3 AMR_NB AMR_WB ASF AVI DTS FLV 3GP 3G2 MKV MP2PS MP2TS MP3 OGG QCP WAV FLAC AIFF APE DSD
 #ifndef VENDOR_EDIT
-#//Yanliang.Huang@PSW.MM.MediaServer.Player.1602673, 2018/10/29,
-#//Add for disable qcom 3gp parser，use google mpeg4 parser.
 #vendor.mm.enable.qcom_parser=13631487
 #else /* VENDOR_EDIT */
-#//Fenggui.Yan@PSW.Tech.Mediaserver,2019.1.28, modify to support dolby ac4@ts.
-#vendor.mm.enable.qcom_parser=13627135
-#//Yaojin@PSW.MM.Mediaserver,2019.5.16, add for only dolby to use MPEG2TSExtractor
-vendor.mm.enable.qcom_parser=13631231
+#//YunMang.Xiao@PSW.MM.MediaServer.Dolby. 2019/06/18, modify to support dolby ac4@ts.
+#Yugang.Ma@PSW.MM.MediaServer.Player.2174298, 2019/07/21, Modify for disable flac
+vendor.mm.enable.qcom_parser=47054591
 #endif /* VENDOR_EDIT */
 persist.mm.enable.prefetch=true
-
-#ifdef VENDOR_EDIT
-#Yanliang.Huang@RM.MM.MediaServer.Player, 2019/02/12,
-#Add for do 4x interpolation with FRC HQV feature.
-vendor.media.vpp.enable=true
-#endif /* VENDOR_EDIT */
 
 #Netflix custom property
 ro.netflix.bsp_rev=Q670-14477-1
@@ -131,8 +122,6 @@ audio.deep_buffer.media=true
 #set AudioFlinger client heap size
 ro.af.client_heap_size_kbyte=7168
 
-#property to enable user to access Google WFD settings
-persist.debug.wfd.enable=1
 ##property to choose between virtual/external wfd display
 persist.sys.wfd.virtual=0
 
@@ -185,55 +174,21 @@ ro.kernel.qemu.gles=0
 
 sdm.drop_skewed_vsync=1
 
-#core-ctl properties used by perfd
-ro.vendor.qti.core_ctl_min_cpu=4
-ro.vendor.qti.core_ctl_max_cpu=6
-
 #set maximum supported adapter voltage
 persist.chg.max_volt_mv=9000
-
-# ro.location properties below are used in conjunction
-# with NLP_MODE setting in /vendor/etc/izat.conf
-# either as the main network provider or as a fallback
-# provider depending on NLP_MODE that is set
-# These properties are optional and will not cause
-# issues if not set to existing packages.
-# ro.location.osnlp.package sets the name of default
-# OS sepecific network location provider package to use
-# ro.location.osnlp.region.package is set to the name
-# of the alternative network location provider package
-# to be used for a particular region where the default
-# network location provider is not functional
-ro.location.osnlp.package=com.google.android.gms
-ro.location.osnlp.region.package=
-
-#Property to enable touch optimizations
-persist.vendor.qti.inputopts.enable=true
-persist.vendor.qti.inputopts.movetouchslop=0.6
-
 #Expose aux camera for below packages
 #ifdef VENDOR_EDIT
 #modify by zhengrong.zhang@Camera,20181105 for oppo camera
-vendor.camera.aux.packagelist=android,com.oppo.engineermode,com.oppo.camera,com.coloros.aruler,com.jianggo.modeling
+vendor.camera.aux.packagelist=com.oppo.engineermode.camera,com.oppo.camera,com.coloros.aruler,org.codeaurora.snapcam
 #endif
-
-#ifdef VENDOR_EDIT
-#Zhenlong.Liu@PSW.NW.IMS.1375782, 2018/07/25 enable ims vt log
-persist.vendor.ims.disableQXDMLogs=0
-persist.vendor.ims.disableADBLogs=0
-persist.vendor.ims.disableDebugLogs=0
-persist.vendor.ims.disableIMSLogs=0
-persist.vendor.ims.rtp.enableqxdm=3
-persist.vendor.ims.vt.enableadb=3
-#endif
-
 #ifdef VENDOR_EDIT
 #xiaopeng@Camera, 2018/12/13 add for [oppo camera raw_sensor not support]
-persist.vendor.camera.privapp.list = com.oppo.camera,com.coloros.aruler,com.jianggo.modeling
-#runfa.lu@Camera 20190710 add for enable LIA
-persist.camera.light_ae.enable = 1
-#Jihui.Wu@Camera.Android.Tuning.AF, 2019/08/19, add for enable IIR in pdlib
-persist.vendor.camera.lcr.en = 1
+persist.vendor.camera.privapp.list = com.oppo.engineermode.camera,com.oppo.camera,com.coloros.aruler,org.codeaurora.snapcam
 #endif
+#ifdef VENDOR_EDIT
+#Yugang.Ma@PSW.MM.MediaServer.Player.2204932, 2019/08/02, Add for use HW codec for decoding thumbnails
+media.stagefright.thumbnail.prefer_hw_codecs=true
+#endif /* VENDOR_EDIT */
+# end of device/qcom/sdm710/system.prop
 
 #
