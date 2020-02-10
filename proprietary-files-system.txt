@@ -1,4 +1,3 @@
--app/NXPNfcNci/NXPNfcNci.apk
 -app/QtiTelephonyService/QtiTelephonyService.apk
 -app/SoterService/SoterService.apk
 -app/datastatusnotification/datastatusnotification.apk
@@ -24,10 +23,8 @@ bin/wfdservice
 etc/dpm/dpm.conf
 etc/init/dpmd.rc
 etc/init/wfdservice.rc
-etc/nfcee_access.xml
 etc/permissions/audiosphere.xml
 etc/permissions/cneapiclient.xml
-etc/permissions/com.nxp.nfc.xml
 etc/permissions/com.qti.dpmframework.xml
 etc/permissions/com.qti.location.sdk.xml
 etc/permissions/com.qualcomm.location.xml
@@ -50,7 +47,6 @@ etc/wfdconfigsink.xml
 framework/QtiTelephonyServicelibrary.jar
 framework/audiosphere.jar
 framework/cneapiclient.jar
-framework/com.nxp.nfc.jar
 framework/com.qti.dpmframework.jar
 framework/com.qti.location.sdk.jar
 framework/com.qualcomm.qti.imscmservice-V2.0-java.jar
@@ -113,7 +109,6 @@ lib/libmmosal.so
 lib/libmmparser_lite.so
 lib/libmmrtpdecoder.so
 lib/libmmrtpencoder.so
-lib/libnxpnfc-nci.so
 lib/librcc.so
 lib/libwfdaac.so
 lib/libwfdavenhancements.so
@@ -185,7 +180,6 @@ lib64/libmmosal.so
 lib64/libmmparser_lite.so
 lib64/libmmrtpdecoder.so
 lib64/libmmrtpencoder.so
-lib64/libnxpnfc-nci.so
 lib64/librcc.so
 lib64/libseemore.so
 lib64/libwfdclient.so
